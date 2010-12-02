@@ -7,7 +7,7 @@
  * @license BSD
  * @link http://creativecommons.org/licenses/BSD/ 
  * @package ComparatorTools
- * @version 0.9
+ * @version 0.9.1
  */
 class ObjectSorter extends ComparatorTool
 {
@@ -98,7 +98,7 @@ class ObjectSorter extends ComparatorTool
 			? krsort($new_order)
 			: ksort($new_order);
 
-		$params = array_merge(array($new_order), $arrays);
+		$params = array_merge(array(&$new_order), $arrays);
 		if (false === call_user_func_array('array_multisort', $params)) {
 			return false;
 		}
