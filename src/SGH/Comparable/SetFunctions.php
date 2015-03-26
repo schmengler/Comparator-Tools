@@ -1,6 +1,8 @@
 <?php
 namespace SGH\Comparable;
 
+use SGH\Comparable\Tool\SetTool;
+
 /**
  * Set functions that compare multiple arrays of Comparables
  *
@@ -13,16 +15,20 @@ namespace SGH\Comparable;
  */
 class SetFunctions
 {
+    public static function withComparator(Comparator $comparator)
+    {
+        return new SetTool($comparator);
+    }
     public static function diff()
     {
-        return call_user_func_array('\array_odiff', func_get_args());
+        return call_user_func_array(array(new SetTool(), 'diff'), func_get_args());
     }
     public static function intersect()
     {
-        return call_user_func_array('\array_ointersect', func_get_args());
+        return call_user_func_array(array(new SetTool(), 'intersect'), func_get_args());
     }
     public static function unique(array &$array)
     {
-        return \array_ounique($array);
+        return (new SetTool())->unique($array);
     }
 }
