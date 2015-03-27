@@ -17,7 +17,7 @@ class SetFunctions
 {
     public static function withComparator(Comparator $comparator)
     {
-        return new SetTool($comparator);
+        return (new SetTool())->setComparator($comparator);
     }
     public static function diff()
     {

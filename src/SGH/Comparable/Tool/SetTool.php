@@ -108,13 +108,15 @@ class SetTool
      *
      * Objects $o1, $o2 are considered equal if $comparator->compare($o1,$o2) returns zero.
      *
+     * The resulting array will be sorted, keys maintained, however for same items it is undefined which one is kept.
+     * 
      * @param array $array            
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
     public function unique(array $array)
     {
-        $sorter = new SortTool($this->getComparator());
-        $sorter->sort($array);
+        $sorter = (new SortTool)->setComparator($this->getComparator());
+        $sorter->sortAssociative($array);
         foreach ($array as $key => $value) {
             if (isset($_last) && ($this->getComparator()->compare($_last, $value) == 0)) {
                 unset($array[$key]);
