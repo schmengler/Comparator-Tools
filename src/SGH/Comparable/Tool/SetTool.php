@@ -55,7 +55,7 @@ class SetTool extends AbstractTool
 	 * @param array $array
 	 * @return boolean Returns TRUE on success or FALSE on failure.
 	 */
-	public function unique(array &$array)
+	public function unique(array $array)
 	{
 		$sorter = new SortTool($this->getComparator());
 		$sorter->sort($array);
@@ -65,6 +65,6 @@ class SetTool extends AbstractTool
 			}
 			$_last = $value;
 		}
-		return true;
+		return $array;
 	}
 }

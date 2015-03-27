@@ -67,12 +67,13 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider dataDuplicates
      */
-    public function testUnique()
+    public function testUnique($inputNumbers)
     {
-        // TODO Auto-generated SetFunctionsTest::testUnique()
-        $this->markTestIncomplete("unique test not implemented");
-        
-        SetFunctions::unique(/* parameters */);
+        $inputObjects = ComparableValue::getComparableObjects($inputNumbers);
+        $expectedNumbers = array_unique($inputNumbers);
+        $expectedObjects = ComparableValue::getComparableObjects($expectedNumbers);
+        $actualObjects = SetFunctions::unique($inputObjects);
+        $this->assertEquals(array_values($expectedObjects), array_values($actualObjects));
     }
 
     /**
