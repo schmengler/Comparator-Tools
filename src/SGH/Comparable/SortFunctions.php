@@ -15,11 +15,6 @@ use SGH\Comparable\Tool\SortTool;
  */
 class SortFunctions
 {
-    public static function withComparator(Comparator $comparator)
-    {
-        return new SortTool($comparator);
-    }
-    
     public static function sort(array &$array)
     {
         (new SortTool())->sort($array);
@@ -27,7 +22,7 @@ class SortFunctions
 
     public static function asort(array &$array)
     {
-        (new SortTool())->setMaintainKeys(true)->sort($array);
+        (new SortTool())->sortAssociative($array);
     }
 
     public static function rsort(array &$array)
@@ -37,10 +32,10 @@ class SortFunctions
 
     public static function arsort(array &$array)
     {
-        (new SortTool())->setMaintainKeys(true)->setReverse(true)->sort($array);
+        (new SortTool())->setReverse(true)->sortAssociative($array);
     }
 
-    public static function multisort(array &$arrays)
+    public static function multisort(array &$arrays )
     {
         (new SortTool())->multisort($arrays);
     }
