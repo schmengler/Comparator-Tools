@@ -1,8 +1,9 @@
 <?php
 namespace SGH\Comparable\Tool;
 
-use SGH\Comparable\Comparator\ComparableComparator;
 use SGH\Comparable\Comparator;
+use SGH\Comparable\Comparator\ComparableComparator;
+use SGH\Comparable\Comparator\ReverseComparator;
 
 /**
  * Comparator tool to sort objects, using Comparators
@@ -90,7 +91,7 @@ class SortTool
      */
     public function sort(array &$array)
     {
-        $comparator = $this->reverse ? new \ReverseComparator($this->getComparator()) : $this->getComparator();
+        $comparator = $this->reverse ? new ReverseComparator($this->getComparator()) : $this->getComparator();
         return usort($array, array(
             $comparator,
             'compare'
@@ -106,7 +107,7 @@ class SortTool
      */
     public function sortAssociative(array &$array)
     {
-        $comparator = $this->reverse ? new \ReverseComparator($this->getComparator()) : $this->getComparator();
+        $comparator = $this->reverse ? new ReverseComparator($this->getComparator()) : $this->getComparator();
         return uasort($array, array(
             $comparator,
             'compare'

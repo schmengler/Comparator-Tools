@@ -2,7 +2,7 @@
 namespace SGH\Comparable;
 
 /**
- * Comparator exception
+ * Comparator exception, thrown if objects are not comparable to each other
  *
  * @author Fabian Schmengler <fschmengler@sgh-it.eu>
  * @copyright &copy; 2015 SGH informationstechnologie UG
@@ -11,6 +11,6 @@ namespace SGH\Comparable;
  * @package Comparable
  * @since 1.0.0
  */
-class ComparatorException extends \ComparatorException
+class ComparatorException extends \Exception
 {
 }
