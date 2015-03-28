@@ -62,7 +62,7 @@ class SortFunctionsTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider dataUnsortedArrays
      */
-    public function testOarsort($inputNumbers)
+    public function testArsort($inputNumbers)
     {
         $inputObjects = ComparableValue::getComparableObjects($inputNumbers);
         arsort($inputNumbers);
@@ -85,9 +85,9 @@ class SortFunctionsTest extends \PHPUnit_Framework_TestCase
             &$inputSecondArray
         );
         SortFunctions::multisort($arrays);
-        $this->assertEquals(array_values(ComparableValue::getComparableObjects(array(
-            - 1, 0, 0, 1, 2
-        ))), array_values($inputReferenceArray), 'Reference array.');
+        $this->assertEquals(ComparableValue::getComparableObjects(array(
+            3 => - 1, 1 => 0, 4 => 0, 0 => 1, 2 => 2
+        )), $inputReferenceArray, 'Reference array.');
         $this->assertEquals(array(
             'minus one', 'zero', 'zero(2)', 'one', 'two'
         ), $inputSecondArray, 'Second array.');
