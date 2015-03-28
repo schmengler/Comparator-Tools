@@ -15,28 +15,36 @@ use SGH\Comparable\Tool\SortTool;
  */
 class SortFunctions
 {
-    public static function sort(array &$array)
+
+    public static function sort(array &$array, Comparator $comparator = null)
     {
-        (new SortTool())->sort($array);
+        (new SortTool())->setComparator($comparator)
+            ->sort($array);
     }
 
-    public static function asort(array &$array)
+    public static function asort(array &$array, Comparator $comparator = null)
     {
-        (new SortTool())->sortAssociative($array);
+        (new SortTool())->setComparator($comparator)
+            ->sortAssociative($array);
     }
 
-    public static function rsort(array &$array)
+    public static function rsort(array &$array, Comparator $comparator = null)
     {
-        (new SortTool())->setReverse(true)->sort($array);
+        (new SortTool())->setComparator($comparator)
+            ->setReverse(true)
+            ->sort($array);
     }
 
-    public static function arsort(array &$array)
+    public static function arsort(array &$array, Comparator $comparator = null)
     {
-        (new SortTool())->setReverse(true)->sortAssociative($array);
+        (new SortTool())->setComparator($comparator)
+            ->setReverse(true)
+            ->sortAssociative($array);
     }
 
-    public static function multisort(array &$arrays )
+    public static function multisort(array &$arrays, Comparator $comparator = null)
     {
-        (new SortTool())->multisort($arrays);
+        (new SortTool())->setComparator($comparator)
+            ->multisort($arrays);
     }
 }

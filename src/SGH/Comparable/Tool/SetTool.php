@@ -47,7 +47,7 @@ class SetTool
      *            The Comparator to be used
      * @return $this
      */
-    public function setComparator(Comparator $comparator)
+    public function setComparator(Comparator $comparator = null)
     {
         $this->comparator = $comparator;
         return $this;

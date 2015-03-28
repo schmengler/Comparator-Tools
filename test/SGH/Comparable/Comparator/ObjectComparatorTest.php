@@ -19,7 +19,7 @@ class ObjectComparatorTest extends \PHPUnit_Framework_TestCase
         $different1 = new \stdClass;
         $different2 = new \stdClass;
 
-        $actualDiff = SetFunctions::withComparator(new ObjectComparator())->diff([$same1, $different1], [$same2, $different2]);
+        $actualDiff = SetFunctions::diff([$same1, $different1], [$same2, $different2], new ObjectComparator);
         $expectedDiff = [ 1 => $different1 ];
         $this->assertEquals($expectedDiff, $actualDiff);
     }
@@ -34,7 +34,7 @@ class ObjectComparatorTest extends \PHPUnit_Framework_TestCase
         $different1 = new \stdClass;
         $different2 = new \stdClass;
 
-        $actualDiff = SetFunctions::withComparator(new ObjectComparator())->intersect([$different1, $same1], [$same2, $different2]);
+        $actualDiff = SetFunctions::intersect([$different1, $same1], [$same2, $different2], new ObjectComparator);
         $expectedDiff = [ 1 => $same1 ];
         $this->assertEquals($expectedDiff, $actualDiff);
     }
@@ -49,7 +49,7 @@ class ObjectComparatorTest extends \PHPUnit_Framework_TestCase
         $different1 = new \stdClass;
         $different2 = new \stdClass;
 
-        $actualUnique = SetFunctions::withComparator(new ObjectComparator())->unique([$different1, $same1, $same2, $different2]);
+        $actualUnique = SetFunctions::unique([$different1, $same1, $same2, $different2], new ObjectComparator);
         ksort($actualUnique); // sort order from spl_object_hash is not deterministic
         $expectedUnique = [ $different1, $same1, $different2 ];
         $this->assertEquals($expectedUnique, array_values($actualUnique));
