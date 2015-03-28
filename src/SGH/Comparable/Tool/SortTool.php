@@ -19,13 +19,6 @@ class SortTool
 {
 
     /**
-     * Reverse flag, specifies if sort order should be reversed
-     * 
-     * @var boolean
-     */
-    private $reverse = false;
-
-    /**
      * The Comparator to be used for sorting
      * 
      * @var Comparator
@@ -59,26 +52,18 @@ class SortTool
         return $this;
     }
 
-    /**
-     * Returns reverse flag, true if sort order should be reversed, false otherwise
-     *
-     * @return boolean The reverse flag
+    /**    
+     * Revert sort order of current comparator
+     * 
+     * @return \SGH\Comparable\Tool\SortTool
      */
-    public function getReverse()
+    public function reverse()
     {
-        return $this->reverse;
-    }
-
-    /**
-     * Sets reverse flag that specifies if sort order should be reversed
-     *
-     * @param boolean $reverse
-     *            The reverse flag
-     * @return $this
-     */
-    public function setReverse($reverse)
-    {
-        $this->reverse = (bool) $reverse;
+        if ($this->getComparator() instanceof ReverseComparator) {
+            $this->setComparator($this->getComparator()->getOriginalComparator());
+        } else {
+            $this->setComparator(new ReverseComparator($this->getComparator()));
+        }
         return $this;
     }
 
@@ -91,9 +76,8 @@ class SortTool
      */
     public function sort(array &$array)
     {
-        $comparator = $this->reverse ? new ReverseComparator($this->getComparator()) : $this->getComparator();
         return usort($array, array(
-            $comparator,
+            $this->getComparator(),
             'compare'
         ));
     }
@@ -107,9 +91,8 @@ class SortTool
      */
     public function sortAssociative(array &$array)
     {
-        $comparator = $this->reverse ? new ReverseComparator($this->getComparator()) : $this->getComparator();
         return uasort($array, array(
-            $comparator,
+            $this->getComparator(),
             'compare'
         ));
     }
@@ -132,14 +115,13 @@ class SortTool
      *            Array of references to the arrays that should be sorted by the first of them
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    public function multisort(array &$arrays)
+    public function multisort(array $arrays)
     {
         $ref = reset($arrays);
-        $refNumeric = array_values($ref);
-        $refSorter = new SortTool($this->getComparator());
-        $refSorter->sortAssociative($refNumeric);
-        $newOrder = array_flip(array_keys($refNumeric));
-        $this->reverse ? krsort($newOrder) : ksort($newOrder);
+        $refNumericKeys = array_values($ref);
+        $this->sortAssociative($refNumericKeys);
+        $newOrder = array_flip(array_keys($refNumericKeys));
+        ksort($newOrder);
         
         $params = array_merge(array(
             &$newOrder

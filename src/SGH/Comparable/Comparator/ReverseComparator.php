@@ -18,19 +18,32 @@ class ReverseComparator implements Comparator
 
     private $comparator;
 
+    /**
+     * Constructor, takes another comparator that will be decorated in reverse order
+     * 
+     * @param Comparator $comparator
+     */
     public function __construct(Comparator $comparator)
     {
         $this->comparator = $comparator;
     }
 
     /**
-     *
-     * @param object $object1            
-     * @param object $object2            
-     * @return numeric
+     * (non-PHPdoc)
+     * @see \SGH\Comparable\Comparator::compare()
      */
     public function compare($object1, $object2)
     {
         return - $this->comparator->compare($object1, $object2);
+    }
+    
+    /**
+     * Returns the original (not reversed) Comparator instance
+     * 
+     * @return Comparator
+     */
+    public function getOriginalComparator()
+    {
+        return $this->comparator;
     }
 }

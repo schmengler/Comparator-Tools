@@ -30,16 +30,12 @@ class SortFunctions
 
     public static function rsort(array &$array, Comparator $comparator = null)
     {
-        (new SortTool())->setComparator($comparator)
-            ->setReverse(true)
-            ->sort($array);
+        (new SortTool())->setComparator($comparator)->reverse()->sort($array);
     }
 
     public static function arsort(array &$array, Comparator $comparator = null)
     {
-        (new SortTool())->setComparator($comparator)
-            ->setReverse(true)
-            ->sortAssociative($array);
+        (new SortTool())->setComparator($comparator)->reverse()->sortAssociative($array);
     }
 
     public static function multisort(array &$arrays, Comparator $comparator = null)
