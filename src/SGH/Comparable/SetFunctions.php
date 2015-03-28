@@ -2,6 +2,7 @@
 namespace SGH\Comparable;
 
 use SGH\Comparable\Tool\SetTool;
+use SGH\Comparable\Comparator\ObjectComparator;
 
 /**
  * Set functions that compare multiple arrays of Comparables
@@ -16,6 +17,20 @@ use SGH\Comparable\Tool\SetTool;
 class SetFunctions
 {
 
+    public static function objectsDiff()
+    {
+        $callback = [ (new SetTool())->setComparator(new ObjectComparator), 'diff' ];
+        return call_user_func_array($callback, func_get_args());
+    }
+    public static function objectsIntersect()
+    {
+        $callback = [ (new SetTool())->setComparator(new ObjectComparator), 'intersect' ];
+        return call_user_func_array($callback, func_get_args());
+    }
+    public static function objectsUnique($array)
+    {
+        return self::unique($array, new ObjectComparator);
+    }
     public static function diff()
     {
         $comparator = null;

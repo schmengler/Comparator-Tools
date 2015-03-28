@@ -10,7 +10,51 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 class SetFunctionsTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Tests SetFunctions::objectsDiff()
+     */
+    public function testObjectsDiff()
+    {
+        $object1 = new \stdClass;
+        $object2 = new \stdClass;
+        $object3 = new \stdClass;
+        $array1 = array($object1, $object2, $object3);
+        $array2 = array($object2, $object2);
+        $array3 = array($object3);
 
+        $expectedDiff = array($object1);
+        $actualDiff = SetFunctions::objectsDiff($array1, $array2, $array3);
+        $this->assertEquals($expectedDiff, $actualDiff);
+    }
+    /**
+     * Tests SetFunctions::objectsIntersect()
+     */
+    public function testObjectsIntersect()
+    {
+        $object1 = new \stdClass;
+        $object2 = new \stdClass;
+        $object3 = new \stdClass;
+        $array1 = array($object1, $object2, $object3);
+        $array2 = array($object2, $object2);
+        $array3 = array($object2, $object3);
+
+        $expectedIntersect = array(1 => $object2);
+        $actualIntersect = SetFunctions::objectsIntersect($array1, $array2, $array3);
+        $this->assertEquals($expectedIntersect, $actualIntersect);
+    }
+    /**
+     * Tests SetFunctions::objectsUnique()
+     */
+    public function testObjectsUnique()
+    {
+        $object1 = new \stdClass;
+        $object2 = new \stdClass;
+        $array = array($object1, $object2, $object2);
+        
+        $expectedUnique = array($object1, $object2);
+        $actualUnique = SetFunctions::objectsUnique($array);
+        $this->assertEquals($expectedUnique, array_values($actualUnique));
+    }
     /**
      * Tests SetFunctions::diff()
      * 
