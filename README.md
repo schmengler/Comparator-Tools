@@ -66,10 +66,10 @@ Comparable interface, the others are re-ordered in the same way as the first.
 
     use SGH\Comparable\SetFunctions;
     
-    $diff = SetFunctions::diff($arrayOfFoo1, $otherArrayOfFoo2, ...);
-    $diff = SetFunctions::diff_assoc($arrayOfFoo1, $otherArrayOfFoo2, ...);
-    $intersect = SetFunctions::intersect($arrayOfFoo1, $otherArrayOfFoo2, ...);
-    $intersect = SetFunctions::intersect_assoc($arrayOfFoo1, $otherArrayOfFoo2, ...);
+    $diff = SetFunctions::diff($arrayOfFoo1, $arrayOfFoo2, ...);
+    $diff = SetFunctions::diff_assoc($arrayOfFoo1, $arrayOfFoo2, ...);
+    $intersect = SetFunctions::intersect($arrayOfFoo1, $arrayOfFoo2, ...);
+    $intersect = SetFunctions::intersect_assoc($arrayOfFoo1, $arrayOfFoo2, ...);
     $unique = SetFunctions::unique($arrayOfFoo);
 
 The methods work analogous to the respective core functions `array_diff`,
@@ -111,10 +111,10 @@ and `SortFunctions`:
     SortFunctions::arsort($arrayOfFoo, new FooComparator);
     SortFunctions::multisort($arrayOfFoo, $arbitraryArray, ..., new FooComparator);
     
-    $diff = SetFunctions::diff($arrayOfFoo1, $otherArrayOfFoo2, ..., new FooComparator);
-    $diff = SetFunctions::diff_assoc($arrayOfFoo1, $otherArrayOfFoo2, ..., new FooComparator);
-    $intersect = SetFunctions::intersect($arrayOfFoo1, $otherArrayOfFoo2, ..., new FooComparator);
-    $intersect = SetFunctions::intersect_assoc($arrayOfFoo1, $otherArrayOfFoo2, ..., new FooComparator);
+    $diff = SetFunctions::diff($arrayOfFoo1, $arrayOfFoo2, ..., new FooComparator);
+    $diff = SetFunctions::diff_assoc($arrayOfFoo1, $arrayOfFoo2, ..., new FooComparator);
+    $intersect = SetFunctions::intersect($arrayOfFoo1, $arrayOfFoo2, ..., new FooComparator);
+    $intersect = SetFunctions::intersect_assoc($arrayOfFoo1, $arrayOfFoo2, ..., new FooComparator);
     $unique = SetFunctions::unique($arrayOfFoo, new FooComparator);
 
 #### The ObjectComparator
@@ -128,8 +128,14 @@ comparison).
     use SGH\Comparable\SetFunctions;
     use SGH\Comparable\Comparator\ObjectComparator;
 
-    $diff = SetFunctions::diff($arrayOfFoo1, $otherArrayOfFoo2, new ObjectComparator);
+    $diff = SetFunctions::diff($arrayOfObjects1, $arrayOfObjects2, new ObjectComparator);
 	// .. and so on
+
+The following shortcut methods exist:
+
+    SetFunctions::objectsDiff($arrayOfObjects1, $arrayOfObjects2);
+    SetFunctions::objectsIntersect($arrayOfObjects1, $arrayOfObjects2);
+    SetFunctions::objectsUnique($arrayOfObjects);
 	
 ### Exceptions
 
