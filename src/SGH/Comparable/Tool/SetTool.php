@@ -57,16 +57,18 @@ class SetTool
      * Computes the difference of arrays based on the Comparator.
      *
      * Objects $o1, $o2 are considered equal if $comparator->compare($o1,$o2) returns zero.
+     * 
+     * Array keys are not compared, but preserved. Duplicates in $array1 are treated the same way
      *
-     * @param array $array
+     * @param array $array1
      *            The array to compare from
      * @param array $array2
      *            An array to compare against.
      * @param array $
      *            ... More arrays to compare against.
-     * @return array false an array containing all the entries from array1 that are not present in any of the other arrays or FALSE on error.
+     * @return array an array containing all the entries from array1 that are not present in any of the other arrays.
      */
-    public function diff(array $array, array $array2 /*, [array $array3, [...]]*/)
+    public function diff(array $array1, array $array2 /*, [array $array3, [...]]*/)
 	{
         $arrays = func_get_args();
         $callback = array(
@@ -82,6 +84,8 @@ class SetTool
      * Computes the intersection of arrays based on the Comparator.
      *
      * Objects $o1, $o2 are considered equal if $comparator->compare($o1,$o2) returns zero.
+     * 
+     * Array keys are not compared, but preserved.
      *
      * @param array $array
      *            The array with master values to check.
@@ -89,7 +93,7 @@ class SetTool
      *            An array to compare values against.
      * @param array $
      *            ... More arrays to compare against.
-     * @return array false an array containing all of the values in array1 whose values exist in all of the parameters or FALSE on error.
+     * @return array an array containing all of the values in array1 whose values exist in all of the parameters.
      */
     public function intersect(array $array, array $array2 /*, [array $array3, [...]]*/)
 	{
@@ -110,8 +114,8 @@ class SetTool
      *
      * The resulting array will be sorted, keys maintained, however for same items it is undefined which one is kept.
      * 
-     * @param array $array            
-     * @return boolean Returns TRUE on success or FALSE on failure.
+     * @param array $array The input array
+     * @return array The filtered array
      */
     public function unique(array $array)
     {

@@ -68,15 +68,15 @@ class SortTool
     }
 
     /**
-     * Sort an array of objects based on the Comparator
+     * Sort an array of objects based on the Comparator. It will assign new keys to the array.
      *
      * @param array $array
      *            Array of objects
-     * @return boolean Returns TRUE on success or FALSE on failure.
+     * @return void
      */
     public function sort(array &$array)
     {
-        return usort($array, array(
+        usort($array, array(
             $this->getComparator(),
             'compare'
         ));
@@ -87,11 +87,11 @@ class SortTool
      *
      * @param array $array
      *            Array of objects
-     * @return boolean Returns TRUE on success or FALSE on failure.
+     * @return void
      */
     public function sortAssociative(array &$array)
     {
-        return uasort($array, array(
+        uasort($array, array(
             $this->getComparator(),
             'compare'
         ));
@@ -100,7 +100,7 @@ class SortTool
     /**
      * Sort multiple arrays of objects based on the Comparator
      *
-     * Works like array_multisort: first array is sorted by $this->comparator,
+     * Works like array_multisort in "sort multiple arrays" mode: first array is sorted by $this->comparator,
      * additional arrays by the first array.
      * NOTE: The arrays must be provided as an array of references. Example:
      * <code>
@@ -113,11 +113,20 @@ class SortTool
      *
      * @param array $arrays
      *            Array of references to the arrays that should be sorted by the first of them
-     * @return boolean Returns TRUE on success or FALSE on failure.
+     * @return void
+     * @throws \InvalidArgumentException if $arrays is not an array of arrays with same sizes
      */
     public function multisort(array $arrays)
     {
         $ref = reset($arrays);
+        foreach ($arrays as $key => $array) {
+            if (! is_array($array)) {
+                throw new \InvalidArgumentException(sprintf('%s expects parameter 1 to be array of arrays, element "%s" is of type "%s".', __METHOD__, $key, gettype($array)));
+            }
+            if (count($array) !== count($ref)) {
+                throw new \InvalidArgumentException(sprintf('%s: array sizes are inconsistent.', __METHOD__));
+            }
+        }
         $refNumericKeys = array_values($ref);
         $this->sortAssociative($refNumericKeys);
         $newOrder = array_flip(array_keys($refNumericKeys));
@@ -129,6 +138,5 @@ class SortTool
         if (false === call_user_func_array('array_multisort', $params)) {
             return false;
         }
-        return true;
     }
 }
