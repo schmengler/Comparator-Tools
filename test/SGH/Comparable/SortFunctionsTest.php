@@ -94,6 +94,21 @@ class SortFunctionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests sortedIterator()
+     * 
+     * @test
+     * @dataProvider dataUnsortedArrays
+     */
+    public function testSortedIterator($inputNumbers)
+    {
+        $inputObjects = ComparableValue::getComparableObjects($inputNumbers);
+        sort($inputNumbers);
+        $expectedObjects = array_values(ComparableValue::getComparableObjects($inputNumbers));
+        $sortedIterator = SortFunctions::sortedIterator(new \ArrayIterator($inputObjects));
+        $this->assertEquals($expectedObjects, iterator_to_array($sortedIterator));
+    }
+
+    /**
      * @test
      * @dataProvider dataInvalidSortArguments
      * @expectedException \SGH\Comparable\ComparatorException

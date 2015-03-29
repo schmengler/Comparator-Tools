@@ -2,6 +2,7 @@
 namespace SGH\Comparable;
 
 use SGH\Comparable\Tool\SortTool;
+use SGH\Comparable\Tool\SortedIterator;
 
 /**
  * Sort functions for arrays of Comparables
@@ -42,5 +43,10 @@ class SortFunctions
     {
         (new SortTool())->setComparator($comparator)
             ->multisort($arrays);
+    }
+    
+    public static function sortedIterator(\Traversable $iterator, Comparator $comparator = null, $cloneItems = false)
+    {
+        return (new SortedIterator($iterator, $cloneItems))->setComparator($comparator);
     }
 }
