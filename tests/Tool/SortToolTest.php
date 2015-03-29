@@ -1,11 +1,9 @@
 <?php
-namespace SGH\Comparable\Tool;
+namespace SGH\Comparable\Test\Tool;
 
 use SGH\Comparable\Comparator\ObjectComparator;
-use SGH\Comparable\ComparableValue;
-require_once 'SGH/Comparable/Tool/SortTool.php';
-
-require_once 'PHPUnit/Framework/TestCase.php';
+use SGH\Comparable\Test\ComparableValue;
+use SGH\Comparable\Tool\SortTool;
 
 /**
  * SortTool test case.

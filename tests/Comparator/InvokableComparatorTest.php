@@ -1,9 +1,11 @@
 <?php
-namespace SGH\Comparable\Comparator;
+namespace SGH\Comparable\Test\Comparator;
 
 use SGH\Comparable\SetFunctions;
 use SGH\Comparable\SortFunctions;
-use SGH\Comparable\ComparableValue;
+use SGH\Comparable\Test\ComparableValue;
+use SGH\Comparable\Comparator\ComparableComparator;
+use SGH\Comparable\Comparator\ObjectComparator;
 
 /**
  * InvokableComparator test case

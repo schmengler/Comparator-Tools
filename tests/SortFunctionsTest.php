@@ -1,10 +1,7 @@
 <?php
-namespace SGH\Comparable;
+namespace SGH\Comparable\Test;
 
-require_once 'src/SGH/Comparable/SortFunctions.php';
-
-require_once 'PHPUnit/Framework/TestCase.php';
-
+use SGH\Comparable\SortFunctions;
 /**
  * SortFunctions test case.
  */

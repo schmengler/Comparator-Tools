@@ -1,10 +1,8 @@
 <?php
-namespace SGH\Comparable;
+namespace SGH\Comparable\Test;
 
 use SGH\Comparable\Comparator\ObjectComparator;
-require_once 'SGH/Comparable/SetFunctions.php';
-
-require_once 'PHPUnit/Framework/TestCase.php';
+use SGH\Comparable\SetFunctions;
 
 /**
  * SetFunctions test case.

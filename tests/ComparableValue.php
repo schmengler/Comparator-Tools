@@ -1,6 +1,8 @@
 <?php
-namespace SGH\Comparable;
+namespace SGH\Comparable\Test;
 
+use SGH\Comparable\Comparable;
+use SGH\Comparable\ComparatorException;
 /**
  * A Simple Comparable implementation as value object that allows testing against core methods.
  * 
