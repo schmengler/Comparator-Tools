@@ -1,6 +1,7 @@
 <?php
 namespace SGH\Comparable;
 
+use SGH\Comparable\Comparator\ObjectComparator;
 require_once 'SGH/Comparable/SetFunctions.php';
 
 require_once 'PHPUnit/Framework/TestCase.php';
@@ -23,8 +24,8 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
         $array3 = array($object3);
 
         $expectedDiff = array($object1);
-        $actualDiff = SetFunctions::objectsDiff($array1, $array2, $array3);
-        $this->assertEquals($expectedDiff, $actualDiff);
+        $this->assertEquals($expectedDiff, SetFunctions::objectsDiff($array1, $array2, $array3));
+        $this->assertEquals($expectedDiff, SetFunctions::diff($array1, $array2, $array3, new ObjectComparator));
     }
     /**
      * Tests SetFunctions::objectsIntersect()
@@ -39,8 +40,8 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
         $array3 = array($object2, $object3);
 
         $expectedIntersect = array(1 => $object2);
-        $actualIntersect = SetFunctions::objectsIntersect($array1, $array2, $array3);
-        $this->assertEquals($expectedIntersect, $actualIntersect);
+        $this->assertEquals($expectedIntersect, SetFunctions::objectsIntersect($array1, $array2, $array3));
+        $this->assertEquals($expectedIntersect, SetFunctions::intersect($array1, $array2, $array3, new ObjectComparator));
     }
     /**
      * Tests SetFunctions::objectsUnique()
@@ -52,8 +53,8 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
         $array = array($object1, $object2, $object2);
         
         $expectedUnique = array($object1, $object2);
-        $actualUnique = SetFunctions::objectsUnique($array);
-        $this->assertEquals($expectedUnique, array_values($actualUnique));
+        $this->assertEquals($expectedUnique, array_values(SetFunctions::objectsUnique($array)));
+        $this->assertEquals($expectedUnique, array_values(SetFunctions::unique($array, new ObjectComparator)));
     }
     /**
      * Tests SetFunctions::diff()
@@ -63,21 +64,7 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testDiff()
     {
-        $inputArrays = func_get_args();
-        $inputObjects = array();
-        foreach ($inputArrays as $inputNumbers) {
-            $inputObjects[] = ComparableValue::getComparableObjects($inputNumbers);
-        }
-
-        call_user_func_array(array(get_class(new SetFunctions), 'diff'), $inputObjects);
-
-        $expectedObjects = array();
-        call_user_func_array('\array_diff', $inputArrays);
-        foreach ($inputArrays as $expectedNumbers) {
-            $expectedObjects[] = ComparableValue::getComparableObjects($expectedNumbers);
-        }
-        
-        $this->assertEquals($expectedObjects, $inputObjects);
+        $this->_testAgainstCoreFunction('diff', '\array_diff', func_get_args());
     }
 
     /**
@@ -88,23 +75,31 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIntersect()
     {
-        $inputArrays = func_get_args();
-        $inputObjects = array();
-        foreach ($inputArrays as $inputNumbers) {
-            $inputObjects[] = ComparableValue::getComparableObjects($inputNumbers);
-        }
-
-        call_user_func_array(array(get_class(new SetFunctions), 'intersect'), $inputObjects);
-
-        $expectedObjects = array();
-        call_user_func_array('\array_intersect', $inputArrays);
-        foreach ($inputArrays as $expectedNumbers) {
-            $expectedObjects[] = ComparableValue::getComparableObjects($expectedNumbers);
-        }
-        
-        $this->assertEquals($expectedObjects, $inputObjects);
+        $this->_testAgainstCoreFunction('intersect', '\array_intersect', func_get_args());
     }
         
+    /**
+     * Tests SetFunctions::diffAssoc()
+     * 
+     * @test
+     * @dataProvider dataDifferentSets
+     */
+    public function testDiffAssoc()
+    {
+        $this->_testAgainstCoreFunction('diff_assoc', '\array_diff_assoc', func_get_args());
+    }
+
+    /**
+     * Tests SetFunctions::intersectAssoc()
+     * 
+     * @test
+     * @dataProvider dataDifferentSets
+     */
+    public function testIntersectAssoc()
+    {
+        $this->_testAgainstCoreFunction('intersect_assoc', '\array_intersect_assoc', func_get_args());
+    }
+    
     /**
      * Tests SetFunctions::unique()
      * 
@@ -120,6 +115,25 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array_values($expectedObjects), array_values($actualObjects));
     }
 
+	/**
+     * @param methodUnderTest
+     * @param coreFunction
+     * @param inputArrays
+     */
+    private function _testAgainstCoreFunction($methodUnderTest, $coreFunction, $inputArrays)
+    {
+        $inputObjects = array();
+        foreach ($inputArrays as $inputNumbers) {
+            $inputObjects[] = ComparableValue::getComparableObjects($inputNumbers);
+        }
+
+        $actualObjects = call_user_func_array(array(get_class(new SetFunctions), $methodUnderTest), $inputObjects);
+
+        $expectedNumbers = call_user_func_array($coreFunction, $inputArrays);
+        $expectedObjects = ComparableValue::getComparableObjects($expectedNumbers);
+        $this->assertEquals($expectedObjects, $actualObjects);
+    }
+    
     /**
      * Data provider
      * 
@@ -131,7 +145,8 @@ class SetFunctionsTest extends \PHPUnit_Framework_TestCase
             [[1, 2, 3, 4], [1, 2, 3]],
             [[1, 2, 3], [1, 2, 3, 4]],
             [[1, 2, 3], [2, 3, 4]],
-            [[1, 2, 3, 4], [1, 2], [4]]
+            [[1, 2, 3, 4], [1, 2], [4]],
+            'different_string_keys' => [['a' => 1, 'b' => 2], ['a' => 1, 'c' => 2]]
         );
     }
     /**

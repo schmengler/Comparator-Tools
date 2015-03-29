@@ -33,26 +33,36 @@ class SetFunctions
     }
     public static function diff()
     {
-        $comparator = null;
-        $args = func_get_args();
-        if (func_get_arg(func_num_args() - 1) instanceof Comparator) {
-            $comparator = array_pop($args);
-        }
-        $callback = [ (new SetTool())->setComparator($comparator), 'diff' ];
-        return call_user_func_array($callback, $args);
+        return self::callWithComparator('diff', func_get_args());
     }
     public static function intersect()
     {
-        $comparator = null;
-        $args = func_get_args();
-        if (func_get_arg(func_num_args() - 1) instanceof Comparator) {
-            $comparator = array_pop($args);
-        }
-        $callback = [ (new SetTool())->setComparator($comparator), 'intersect' ];
-        return call_user_func_array($callback, $args);
+        return self::callWithComparator('intersect', func_get_args());
     }
+    public static function diff_assoc()
+    {
+        return self::callWithComparator('diffAssoc', func_get_args());
+    }
+    public static function intersect_assoc()
+    {
+        return self::callWithComparator('intersectAssoc', func_get_args());
+    }
+    
     public static function unique(array $array, Comparator $comparator = null)
     {
         return (new SetTool)->setComparator($comparator)->unique($array);
+    }
+	/**
+     * @param function
+     * @param args
+     */
+    private static function callWithComparator($function, $args)
+    {
+        $comparator = null;
+        if (end($args) instanceof Comparator) {
+            $comparator = array_pop($args);
+        }
+        $callback = [ (new SetTool())->setComparator($comparator), $function ];
+        return call_user_func_array($callback, $args);
     }
 }

@@ -70,14 +70,7 @@ class SetTool
      */
     public function diff(array $array1, array $array2 /*, [array $array3, [...]]*/)
 	{
-        $arrays = func_get_args();
-        $callback = array(
-            $this->getComparator(),
-            'compare'
-        );
-        return call_user_func_array('array_udiff', array_merge($arrays, array(
-            $callback
-        )));
+        return $this->callFunction('array_udiff', func_get_args());
     }
 
     /**
@@ -97,16 +90,64 @@ class SetTool
      */
     public function intersect(array $array, array $array2 /*, [array $array3, [...]]*/)
 	{
-        $arrays = func_get_args();
+	    return $this->callFunction('array_uintersect', func_get_args());
+    }
+    
+    /**
+     * Computes the difference of arrays based on the Comparator, with additional index check.
+     *
+     * Objects $o1, $o2 are considered equal if $comparator->compare($o1,$o2) returns zero.
+     *
+     * Array keys are not compared, but preserved. Duplicates in $array1 are treated the same way
+     *
+     * @param array $array1
+     *            The array to compare from
+     * @param array $array2
+     *            An array to compare against.
+     * @param array $
+     *            ... More arrays to compare against.
+     * @return array an array containing all the entries from array1 that are not present in any of the other arrays. Keys are also taken into account for comparison.
+     */
+    public function diffAssoc(array $array1, array $array2 /*, [array $array3, [...]]*/)
+    {
+        return $this->callFunction('array_udiff_assoc', func_get_args());
+    }
+    
+    /**
+     * Computes the intersection of arrays based on the Comparator, with additional index check.
+     *
+     * Objects $o1, $o2 are considered equal if $comparator->compare($o1,$o2) returns zero.
+     *
+     * Array keys are not compared, but preserved.
+     *
+     * @param array $array
+     *            The array with master values to check.
+     * @param array $array2
+     *            An array to compare values against.
+     * @param array $
+     *            ... More arrays to compare against.
+     * @return array an array containing all of the values in array1 whose values exist in all of the parameters. Keys are also taken into account for comparison.
+     */
+    public function intersectAssoc(array $array, array $array2 /*, [array $array3, [...]]*/)
+    {
+        return $this->callFunction('array_uintersect_assoc', func_get_args());
+    }
+    
+	/**
+     * @param function core function that takes an arbitrary number of arrays and a callable as arguments
+     * @param arrays the arrays to pass as arguments
+     */
+    private function callFunction($function, $arrays)
+    {
         $callback = array(
             $this->getComparator(),
             'compare'
         );
-        return call_user_func_array('array_uintersect', array_merge($arrays, array(
+        return call_user_func_array($function, array_merge($arrays, array(
             $callback
         )));
     }
-
+    
     /**
      * Removes duplicate objects from an array based on the Comparator.
      *
