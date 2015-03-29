@@ -94,6 +94,15 @@ class SortFunctionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @dataProvider dataInvalidSortArguments
+     * @expectedException \SGH\Comparable\ComparatorException
+     */
+    public function testInvalidSortArguments($inputObjects)
+    {
+        SortFunctions::sort($inputObjects);
+    }
+    /**
      * Data provider
      * 
      * @return int[][][]
@@ -107,6 +116,16 @@ class SortFunctionsTest extends \PHPUnit_Framework_TestCase
             [[5, 4, 3, 2, 1]],
             [[2, 1, 2, 1]],
             [[-1, 1, 0]]
+        );
+    }
+    public static function dataInvalidSortArguments()
+    {
+        return array(
+        	'comparable_and_other_object' => [[ComparableValue::getInstance(1), new \stdClass]],
+        	'other_object_and_comparable' => [[new \stdClass, ComparableValue::getInstance(1)]],
+            'comparable_and_string'       => [[ComparableValue::getInstance(1), 'foo']],
+            'only_other_objects'          => [[new \stdClass, new \stdClass]],
+            'only_strings'                => [['foo', 'bar']]                        
         );
     }
 }

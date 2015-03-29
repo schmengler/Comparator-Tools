@@ -47,7 +47,6 @@ class SetFunctions
     {
         return self::callWithComparator('intersectAssoc', func_get_args());
     }
-    
     public static function unique(array $array, Comparator $comparator = null)
     {
         return (new SetTool)->setComparator($comparator)->unique($array);

@@ -104,7 +104,7 @@ class SortToolTest extends \PHPUnit_Framework_TestCase
      * Tests that multisort() throws \InvalidArgumentException if argument is not an array of arrays of the same size
      * 
      * @test
-     * @dataProvider invalidMultisortArguments
+     * @dataProvider dataInvalidMultisortArguments
      * @expectedException \InvalidArgumentException
      * @param array $arrays
      */
@@ -117,7 +117,7 @@ class SortToolTest extends \PHPUnit_Framework_TestCase
      * 
      * @return array[][]
      */
-    public static function invalidMultisortArguments()
+    public static function dataInvalidMultisortArguments()
     {
         return array(
         	'first_not_an_array' => [['string']],

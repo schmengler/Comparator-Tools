@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../ComparatorTools/ComparatorTools.inc';
 
 spl_autoload_register(function($class) {
 	$file = str_replace('\\', '/', $class) . '.php';
