@@ -54,4 +54,31 @@ class ObjectComparatorTest extends \PHPUnit_Framework_TestCase
         $expectedUnique = [ $different1, $same1, $different2 ];
         $this->assertEquals($expectedUnique, array_values($actualUnique));
     }
+    /**
+     * Tests that non-objects passed to ObjectComparator result in ComparatorException
+     * 
+     * @test
+     * @dataProvider dataInvalidArguments
+     * @expectedException \SGH\Comparable\ComparatorException
+     * @param mixed $object1
+     * @param mixed $object2
+     */
+    public function testInvalidArguments($object1, $object2)
+    {
+        $objectComparator = new ObjectComparator();
+        $objectComparator->compare($object1, $object2);
+    }
+    /**
+     * Data provider for testInvalidArguments()
+     * 
+     * @return mixed[][]
+     */
+    public static function dataInvalidArguments()
+    {
+        return array(
+        	[new \stdClass, 'foo'],
+            ['foo', new \stdClass],
+            ['foo', 'bar']
+        );
+    }
 }

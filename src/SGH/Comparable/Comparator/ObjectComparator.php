@@ -32,4 +32,13 @@ class ObjectComparator implements Comparator
         }
         return strcmp(spl_object_hash($object1), spl_object_hash($object2));
     }
+    /**
+     * Returns a callback object that can be used for core functions that take a callback parameter
+     *
+     * @return \SGH\Comparable\Comparator\InvokableComparator
+     */
+    public static function callback()
+    {
+        return new InvokableComparator(new static);
+    }
 }

@@ -2,7 +2,9 @@
 namespace SGH\Comparable;
 
 /**
- * Contains an integer property that the compareTo method refers to
+ * A Simple Comparable implementation as value object that allows testing against core methods.
+ * 
+ * Instances contains an integer property that the compareTo method refers to
  */
 class ComparableValue implements Comparable
 {
@@ -47,10 +49,5 @@ class ComparableValue implements Comparable
         if (! $object instanceof ComparableValue)
             throw new ComparatorException('object is not of type ComparableValue');
         return $this->value - $object->value;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
     }
 }

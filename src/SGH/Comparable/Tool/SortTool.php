@@ -135,8 +135,6 @@ class SortTool
         $params = array_merge(array(
             &$newOrder
         ), $arrays);
-        if (false === call_user_func_array('array_multisort', $params)) {
-            return false;
-        }
+        call_user_func_array('array_multisort', $params);
     }
 }
