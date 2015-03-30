@@ -1,0 +1,30 @@
+{
+  "name" : "sgh/comparable",
+  "description" : "Provides Comparable and Comparator interfaces and methods to sort and compare objects based on these.",
+  "version" : "1.0.0",
+  "require" : {
+    "php" : ">=5.4.0"
+  },
+  "require-dev" : {
+    "phpunit/phpunit" : "4.*"
+  },
+  "authors" : [ {
+    "name" : "Fabian Schmengler",
+    "email" : "fschmengler@sgh-it.eu",
+    "homepage" : "http://www.schmengler-se.de/",
+    "role" : "Developer"
+  } ],
+  "autoload-dev" : {
+    "psr-4" : {
+      "SGH\\Comparable\\Test\\" : "tests"
+    }
+  },
+  "keywords" : [ "comparable", "comparator" ],
+  "autoload" : {
+    "psr-4" : {
+      "SGH\\Comparable\\" : "src"
+    }
+  },
+  "license" : "MIT",
+  "homepage" : "https://github.com/schmengler/Comparator-Tools"
+}
