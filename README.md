@@ -136,7 +136,18 @@ The following shortcut methods exist:
     SetFunctions::objectsDiff($arrayOfObjects1, $arrayOfObjects2);
     SetFunctions::objectsIntersect($arrayOfObjects1, $arrayOfObjects2);
     SetFunctions::objectsUnique($arrayOfObjects);
-	
+
+### SortedIterator
+
+You can sort iterators as well. Due to the nature of iterators, this means
+essentially that they get iterated over once, and you get an ArrayIterator
+with all resulting items, sorted. To sort an iterator, decorate it with the
+`SortedIterator` like this:
+
+    use SGH\Comparable\SortFunctions;
+    
+    $sortedIterator = SortFunctions::sortedIterator($iterator);
+
 ### Exceptions
 
 The default comparator throws a `ComparatorException` if one of the objects

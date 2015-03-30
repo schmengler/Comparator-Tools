@@ -68,7 +68,7 @@ class SortTool
     }
 
     /**
-     * Sort an array of objects based on the Comparator. It will assign new keys to the array.
+     * Sort an array based on the Comparator. It will assign new keys to the array.
      *
      * @param array $array
      *            Array of objects
@@ -104,11 +104,11 @@ class SortTool
      * additional arrays by the first array.
      * NOTE: The arrays must be provided as an array of references. Example:
      * <code>
-     * $os = new ObjectSort();
+     * $sortTool = new SortTool();
      * $array1 = array(new ComparableObject(3), new ComparableObject(1), new ComparableObject(2));
      * $array2 = array('object three', 'object one', 'object two');
      * $array3 = array('foo', 'bar', 'baz');
-     * $os->multisort(array(&$array1, &$array2, &$array3));
+     * $sortTool->multisort(array(&$array1, &$array2, &$array3));
      * </code>
      *
      * @param array $arrays

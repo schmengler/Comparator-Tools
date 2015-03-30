@@ -16,12 +16,17 @@ use SGH\Comparable\Comparator;
 class InvokableComparator implements Comparator
 {
 
+    /**
+     * The original comparator
+     * 
+     * @var Comparator
+     */
     private $comparator;
 
     /**
      * Constructor, takes another comparator that will be decorated
      *
-     * @param Comparator $comparator
+     * @param Comparator $comparator the original comparator
      */
     public function __construct(Comparator $comparator)
     {
@@ -36,6 +41,7 @@ class InvokableComparator implements Comparator
         return $this->comparator->compare($object1, $object2);
     }
     /**
+     * Magic method to make objects callable, invoking the compare method
      * 
      * @param unknown $object1
      * @param unknown $object2

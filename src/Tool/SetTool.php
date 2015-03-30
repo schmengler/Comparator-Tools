@@ -64,8 +64,8 @@ class SetTool
      *            The array to compare from
      * @param array $array2
      *            An array to compare against.
-     * @param array $
-     *            ... More arrays to compare against.
+     * @param array $...
+     *            More arrays to compare against.
      * @return array an array containing all the entries from array1 that are not present in any of the other arrays.
      */
     public function diff(array $array1, array $array2 /*, [array $array3, [...]]*/)
@@ -84,8 +84,8 @@ class SetTool
      *            The array with master values to check.
      * @param array $array2
      *            An array to compare values against.
-     * @param array $
-     *            ... More arrays to compare against.
+     * @param array $...
+     *            More arrays to compare against.
      * @return array an array containing all of the values in array1 whose values exist in all of the parameters.
      */
     public function intersect(array $array, array $array2 /*, [array $array3, [...]]*/)
@@ -104,8 +104,8 @@ class SetTool
      *            The array to compare from
      * @param array $array2
      *            An array to compare against.
-     * @param array $
-     *            ... More arrays to compare against.
+     * @param array $...
+     *            More arrays to compare against.
      * @return array an array containing all the entries from array1 that are not present in any of the other arrays. Keys are also taken into account for comparison.
      */
     public function diffAssoc(array $array1, array $array2 /*, [array $array3, [...]]*/)
@@ -124,8 +124,8 @@ class SetTool
      *            The array with master values to check.
      * @param array $array2
      *            An array to compare values against.
-     * @param array $
-     *            ... More arrays to compare against.
+     * @param array $...
+     *            More arrays to compare against.
      * @return array an array containing all of the values in array1 whose values exist in all of the parameters. Keys are also taken into account for comparison.
      */
     public function intersectAssoc(array $array, array $array2 /*, [array $array3, [...]]*/)
