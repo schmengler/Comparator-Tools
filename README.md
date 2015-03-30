@@ -3,6 +3,7 @@
 [![Author](http://img.shields.io/badge/author-@fschmengler-blue.svg?style=flat-square)](https://twitter.com/fschmengler)
 [![Latest Version](https://img.shields.io/github/release/sgh-it/comparable.svg?style=flat-square)](https://github.com/schmengler/Comparator-Tools/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/schmengler/Comparator-Tools/master.svg?style=flat-square)](https://travis-ci.org/schmengler/Comparator-Tools)
 
 This package, formerly known as Comparator Tools, provides sorting of objects
 that have a Comparable interface and other useful functions with comparison of
