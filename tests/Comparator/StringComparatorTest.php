@@ -65,6 +65,7 @@ class StringComparatorTest extends AbstractComparatorTest
             [ StringCompareMode::STRCMP(), 'abb', 'AAB', 1 ],
             [ StringCompareMode::STRCMP(), 'file2', 'file10', 1 ],
             [ StringCompareMode::STRCMP(), 'FILE2', 'file10', -1 ],
+            [ StringCompareMode::STRCMP(), new \SplFileInfo(__FILE__), __FILE__, 0 ],
             
             [ StringCompareMode::STRCASECMP(), 'ab', 'ab', 0 ],
             [ StringCompareMode::STRCASECMP(), 'aab', 'abb', -1 ],
@@ -75,6 +76,7 @@ class StringComparatorTest extends AbstractComparatorTest
             [ StringCompareMode::STRCASECMP(), 'abb', 'AAB', 1 ],
             [ StringCompareMode::STRCASECMP(), 'file2', 'file10', 1 ],
             [ StringCompareMode::STRCASECMP(), 'FILE2', 'file10', 1 ],
+            [ StringCompareMode::STRCASECMP(), new \SplFileInfo(__FILE__), __FILE__, 0 ],
             
             [ StringCompareMode::STRNATCMP(), 'ab', 'ab', 0 ],
             [ StringCompareMode::STRNATCMP(), 'aab', 'abb', -1 ],
@@ -85,6 +87,7 @@ class StringComparatorTest extends AbstractComparatorTest
             [ StringCompareMode::STRNATCMP(), 'abb', 'AAB', 1 ],
             [ StringCompareMode::STRNATCMP(), 'file2', 'file10', -1 ],
             [ StringCompareMode::STRNATCMP(), 'FILE2', 'file10', -1 ],
+            [ StringCompareMode::STRNATCMP(), new \SplFileInfo(__FILE__), __FILE__, 0 ],
             
             [ StringCompareMode::STRNATCASECMP(), 'ab', 'ab', 0 ],
             [ StringCompareMode::STRNATCASECMP(), 'aab', 'abb', -1 ],
@@ -95,6 +98,7 @@ class StringComparatorTest extends AbstractComparatorTest
             [ StringCompareMode::STRNATCASECMP(), 'abb', 'AAB', 1 ],
             [ StringCompareMode::STRNATCASECMP(), 'file2', 'file10', -1 ],
             [ StringCompareMode::STRNATCASECMP(), 'FILE2', 'file10', -1 ],
+            [ StringCompareMode::STRNATCASECMP(), new \SplFileInfo(__FILE__), __FILE__, 0 ],
             
         );
     }
