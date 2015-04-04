@@ -64,10 +64,11 @@ class StringComparator implements Comparator
     /**
      * Returns a callback object that can be used for core functions that take a callback parameter
      *
+     * @param StringCompareMode $compareMode String comparison mode, defaults to STRCMP
      * @return \SGH\Comparable\Comparator\InvokableComparator
      */
-    public static function callback()
+    public static function callback(StringCompareMode $compareMode = null)
     {
-        return new InvokableComparator(new static);
+        return new InvokableComparator(new static($compareMode));
     }
 }
