@@ -2,6 +2,7 @@
 namespace SGH\Comparable\Test;
 
 use SGH\Comparable\SortFunctions;
+use SGH\Comparable\Comparator\ComparableComparator;
 /**
  * SortFunctions test case.
  */
@@ -103,8 +104,24 @@ class SortFunctionsTest extends \PHPUnit_Framework_TestCase
         $expectedObjects = array_values(ComparableValue::getComparableObjects($inputNumbers));
         $sortedIterator = SortFunctions::sortedIterator(new \ArrayIterator($inputObjects));
         $this->assertEquals($expectedObjects, iterator_to_array($sortedIterator));
+        $this->assertSame($expectedObjects, iterator_to_array($sortedIterator));
     }
-
+    /**
+     * Tests sortedIterator() with cloned items
+     *
+     * @test
+     * @dataProvider dataUnsortedArrays
+     */
+    public function testSortedIteratorWithClone($inputNumbers)
+    {
+        $inputObjects = ComparableValue::getComparableObjects($inputNumbers);
+        sort($inputNumbers);
+        $expectedObjects = array_values(ComparableValue::getComparableObjects($inputNumbers));
+        $sortedIterator = SortFunctions::sortedIterator(new \ArrayIterator($inputObjects), new ComparableComparator, true);
+        $this->assertEquals($expectedObjects, iterator_to_array($sortedIterator));
+        $this->assertNotSame($expectedObjects, iterator_to_array($sortedIterator));
+    }
+    
     /**
      * @test
      * @dataProvider dataInvalidSortArguments
