@@ -1,7 +1,6 @@
 {
   "name" : "sgh/comparable",
   "description" : "Provides Comparable and Comparator interfaces and methods to sort and compare objects based on these.",
-  "version" : "1.0.0",
   "require" : {
     "php" : ">=5.4.0"
   },
