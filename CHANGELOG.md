@@ -2,6 +2,18 @@
 
 All Notable changes to `Comparable` will be documented in this file
 
+## 1.1.1 - 2015-04-06
+
+### Fixed
+
+- removed hard coded version number from composer.json which made installing v1.1.0 via composer impossible.
+
+## 1.1.0 - 2015-04-04
+
+### Added
+
+- `StringComparator` and `NumericComparator`, useful together with complex comparators like in the [sgh/comparable-arrays](https://github.com/schmengler/comparable-arrays) package
+
 ## 1.0.0 - 2015-03-30
 
 First stable release with new API and completely refactored, modernized implementation.
